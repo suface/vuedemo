@@ -1,0 +1,103 @@
+<template>
+	
+  <div class="index">
+  
+  
+
+  
+  	     <div class="banner">
+         <swiper :options="swiperOption"  ref="mySwiper">
+         	
+        <!-- 这部分放你要渲染的那些内容 -->
+        <swiper-slide v-for='img in banners' :key="img.id">
+          <img :src="img.pic_url"/>
+        </swiper-slide>
+        <!-- 这是轮播的小圆点 -->
+      </swiper>
+    </div>
+  	      
+  <p style="height: 800px;;">indexxxxxx</p>
+     
+     <input type="button" value="toggle" v-on:click="toggle()"> <br />
+    <div v-show="isShow" style="width: 100px;height: 100px;background: red"></div>
+   	  <p style="height: 20px;;">底部</p>
+   	  <p style="height: 20px;;">底部</p>
+
+	
+	<goTop></goTop>	
+  </div>
+</template>
+
+<script>
+import Vue from 'vue'
+import { swiper, swiperSlide } from 'vue-awesome-swiper'
+import 'swiper/dist/css/swiper.min.css';
+
+
+import goTop from '@/components/goTop.vue';
+
+//console.log(initItems);
+export default {
+  name: 'index',
+   data () {
+    return {
+    	loadBtn:true,
+    	 isShow:false,
+    	banners:[
+    	  { 
+    	  	id:"1",
+    	  	brand_name:'曼秀雷敦/Mentholatum',
+          pic_url:'http://lrlz-media.image.alimmdn.com/upload/2018-02-26-17-23-45417.png',
+       },
+        {  	id:"2",
+        	brand_name:"美宝莲/Maybelline",
+          pic_url:"http://lrlz-media.image.alimmdn.com/upload/2018-02-26-17-43-37459.png",
+       }
+    	],
+    	
+      rocket: false,
+      requestStatus: true,
+      swiperOption: {
+        pagination: '.swiper-pagination',
+        slidesPerView: 'auto',
+        centeredSlides: true,
+        paginationClickable: true,
+        spaceBetween: 30,
+        onSlideChangeEnd: swiper => {
+          // 这个位置放swiper的回调方法
+            this.page = swiper.realIndex + 1
+            this.index = swiper.realIndex
+        }
+      },
+      
+      
+    }
+  },
+  components:{
+	 swiper,
+    swiperSlide,
+    goTop
+  },
+   methods: {
+  	    setBannerSrc (src) {
+      return src
+    },
+     toggle(){
+     	this.isShow = !this.isShow;
+     },
+     
+     
+     
+     
+   }
+  }
+
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+.banner{ width: 100%;}
+.banner img{ width: 100%;}
+
+
+</style>
